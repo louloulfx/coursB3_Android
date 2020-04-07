@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">CoursB3_1</string>
+
+    <!-- Commun -->
+    <string name="app_name">Liste simple</string>
+
+    <!-- Main -->
+    <string name="main_message_position">Clic à la position %1$d</string>
+    <string name="text_edit_text">Saisir un mémo &#8230;</string>
+    <string name="main_libelle_bouton_valider">OK</string>
+
 </resources>

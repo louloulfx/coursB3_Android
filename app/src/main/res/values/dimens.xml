@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="height_edit_text">64dp</dimen>
+    <dimen name="main_hauteur_memo">64dp</dimen>
+    <dimen name="main_taille_intitule_memo">18sp</dimen>
+    <dimen name="padding_edit_text">8dp</dimen>
+</resources>

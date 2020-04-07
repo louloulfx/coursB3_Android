@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Main -->
+    <integer name="maxLength_edit_text">30</integer>
+
+</resources>
