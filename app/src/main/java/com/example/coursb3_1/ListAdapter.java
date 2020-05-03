@@ -15,17 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder>
 {
 
-    // Liste d'objets métier :
-    private List<Liste> listeMemos = null;
+    private MainActivity mainActivity;
+    private List<ListDTO> listDTO = null;
 
 
-    /**
-     * Constructeur.
-     * @param listeMemos Liste de mémos
-     */
-    public ListAdapter(List<Liste> listeMemos)
+    public ListAdapter(MainActivity mainActivity, List<ListDTO> listDTO)
     {
-        this.listeMemos = listeMemos;
+        this.mainActivity = mainActivity;
+        this.listDTO = listDTO;
     }
 
     @Override
@@ -38,25 +35,27 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     @Override
     public void onBindViewHolder(ListViewHolder holder, int position)
     {
-        holder.textViewIntitule.setText(listeMemos.get(position).intitule);
+        holder.textViewIntitule.setText(listDTO.get(position).intitule);
     }
 
     @Override
     public int getItemCount()
     {
-        return listeMemos.size();
+        return listDTO.size();
     }
 
-    /**
-     * Ajout d'un mémo à la liste.
-     * @param memo Mémo
-     */
-    public void ajouterMemo(Liste memo)
+
+    public void ajouterMemo(List<ListDTO> listDTO)
     {
-        listeMemos.add(0, memo);
-        notifyItemInserted(0);
+        this.listDTO = listDTO;
+        notifyDataSetChanged();
     }
 
+
+    public ListDTO getListDTOByPosition(int position)
+    {
+        return listDTO.get(position);
+    }
 
     /**
      * ViewHolder.
@@ -68,10 +67,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         TextView textViewIntitule = null;
 
 
-        /**
-         * Constructeur.
-         * @param itemView Vue item
-         */
         ListViewHolder(final View itemView)
         {
             super(itemView);
@@ -83,11 +78,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
                 @Override
                 public void onClick(View view)
                 {
-                    // récupération du context depuis une vue :
-                    Context context = itemView.getContext();
-
-                    // affichage du toast :
-                    Toast.makeText(context, context.getString(R.string.main_message_position, getAdapterPosition()), Toast.LENGTH_LONG).show();
+                    mainActivity.onClickItem(getAdapterPosition());
                 }
             });
         }

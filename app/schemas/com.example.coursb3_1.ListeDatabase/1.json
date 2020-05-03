@@ -1,0 +1,40 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "06db552dc916f93959f74a4bab357e3b",
+    "entities": [
+      {
+        "tableName": "liste",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`listeId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `intitule` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "listeId",
+            "columnName": "listeId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "intitule",
+            "columnName": "intitule",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "listeId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '06db552dc916f93959f74a4bab357e3b')"
+    ]
+  }
+}

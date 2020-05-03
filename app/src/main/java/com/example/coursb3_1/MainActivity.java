@@ -3,53 +3,99 @@ package com.example.coursb3_1;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import cz.msebera.android.httpclient.Header;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.coursb3_1.json.RetourWS;
+import com.google.gson.Gson;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.prefs.PreferenceChangeEvent;
 
 public class MainActivity extends AppCompatActivity
 {
 
-    // Vues :
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String LINK = "https://httpbin.org/post";
+    private static final String LISTE_NAME = "liste";
+    private static final String POSITION = "position";
+
     private RecyclerView recyclerView = null;
     private EditText editTextMemo = null;
 
-    // Adapter :
     private ListAdapter listeAdapter = null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        // init :
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // vues :
+
         recyclerView = findViewById(R.id.liste_memos);
         editTextMemo = findViewById(R.id.saisie_memo);
 
-        // à ajouter pour de meilleures performances :
+        List<ListDTO> listeListDTO = ListeDatabaseHelper.getDatabase(this).listeDAO().getListeListe();
+
+
         recyclerView.setHasFixedSize(true);
 
-        // layout manager, décrivant comment les items sont disposés :
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        // contenu d'exemple :
-        List<Liste> listeMemos = new ArrayList<>();
-        for (int a = 0 ; a < 20 ; a++)
+        listeAdapter = new ListAdapter(this, listeListDTO);
+        recyclerView.setAdapter(listeAdapter);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int dernierePosition = preferences.getInt(POSITION, -1);
+        if (dernierePosition > -1)
         {
-            listeMemos.add(new Liste("Mémo n°" + (a + 1)));
+            Toast.makeText(this, getString(R.string.main_message_derniere_position, dernierePosition), Toast.LENGTH_LONG).show();
         }
 
-        // adapter :
-        listeAdapter = new ListAdapter(listeMemos);
-        recyclerView.setAdapter(listeAdapter);
+    }
+
+    public void onClickItem(int position) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(POSITION, position);
+        editor.apply();
+
+        ListDTO listDTO = listeAdapter.getListDTOByPosition(position);
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+        requestParams.put(LISTE_NAME, listDTO.intitule);
+
+        client.post(LINK, requestParams, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                String retour = new String(response);
+                Gson gson = new Gson();
+                RetourWS retourWS = gson.fromJson(retour, RetourWS.class);
+                Toast.makeText(MainActivity.this, retourWS.form.liste, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                Log.e(TAG, e.toString());
+            }
+        });
     }
 
     /**
@@ -58,13 +104,15 @@ public class MainActivity extends AppCompatActivity
      */
     public void onClickBoutonValider(View view)
     {
-        // ajout du mémo :
-        listeAdapter.ajouterMemo(new Liste(editTextMemo.getText().toString()));
+        ListDTO listDTO = new ListDTO(editTextMemo.getText().toString());
+        ListeDatabaseHelper.getDatabase(this).listeDAO().insert(listDTO);
 
-        // animation de repositionnement de la liste (sinon on ne voit pas l'item ajouté) :
+        List<ListDTO> listeListDTO = ListeDatabaseHelper.getDatabase(this).listeDAO().getListeListe();
+
+        listeAdapter.ajouterMemo(listeListDTO);
+
         recyclerView.smoothScrollToPosition(0);
 
-        // on efface le contenu de la zone de saisie :
         editTextMemo.setText("");
     }
 
