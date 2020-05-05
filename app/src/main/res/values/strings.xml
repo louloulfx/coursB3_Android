@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">CoursB3_1</string>
+    <string name="main_dialogue_message">Nombre de mots : %1$d\nPage n°%2$d</string>
+    <string name="text">
+
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ac sem in purus feugiat rutrum quis congue diam. Ut vel placerat nisi, at blandit lorem. Phasellus sollicitudin sagittis interdum. Integer sit amet mi at enim lacinia gravida in sed enim. Phasellus eu mattis dolor. In at pellentesque dolor. Cras eleifend consequat sapien nec hendrerit. Etiam felis ipsum, pellentesque et odio sed, tincidunt faucibus neque. Duis viverra justo sit amet mauris tempor consectetur. Praesent in metus justo. Pellentesque libero augue, pretium eget magna ac, posuere mattis erat. Curabitur vitae leo lectus. Donec a pharetra diam. Suspendisse a ante non arcu fringilla vulputate.
+
+Cras scelerisque volutpat erat sed luctus. Curabitur sit amet ex porta, dictum tellus feugiat, convallis ligula. Fusce ullamcorper dui dui, id placerat dui laoreet non. Sed rutrum vehicula diam, sit amet commodo diam dapibus ac. Praesent ultrices rhoncus vehicula. Proin malesuada diam rhoncus odio rutrum fringilla eu imperdiet diam. Duis urna ante, aliquet a auctor sed, facilisis non ligula. Praesent faucibus eros in ornare malesuada. Donec vel aliquet erat.
+
+Cras ipsum velit, tristique eget urna sed, porta euismod diam. Fusce gravida metus ac massa efficitur consequat quis ultricies tellus. In finibus turpis sed porta tempor. Pellentesque id massa nisi. Nullam ac viverra lorem, ut sagittis massa. Vivamus ante eros, vestibulum a pharetra ac, pharetra ac risus. Praesent enim nisi, facilisis non venenatis in, mollis ac tellus. Praesent sit amet efficitur nisl. Morbi enim felis, porttitor sit amet auctor vel, scelerisque non arcu. Vestibulum congue mauris sit amet purus posuere sodales. Nunc et turpis mi.
+
+Mauris id imperdiet ante, sit amet auctor lectus. Etiam ut euismod dolor. Pellentesque venenatis, sem et facilisis congue, turpis tortor malesuada sapien, sit amet fermentum est turpis quis sem. Nunc sit amet tristique nisi. Maecenas ullamcorper, quam scelerisque tristique facilisis, nibh turpis dignissim ante, sit amet suscipit arcu ipsum et est. Vestibulum pulvinar ante sit amet elementum feugiat. Cras sed aliquam mauris. Curabitur tempor imperdiet sodales. Aenean tempus iaculis neque. Vivamus ultrices magna non nisi vestibulum, porta commodo nisi consectetur. Vestibulum at nisl aliquet, pulvinar velit in, tristique sapien. Sed rhoncus mollis eros, imperdiet semper neque tincidunt vulputate. Mauris imperdiet condimentum purus, nec luctus dolor dignissim sit amet.
+
+Fusce eu magna vel quam molestie scelerisque. In imperdiet magna ipsum, sit amet maximus ante fermentum eu. Morbi in purus placerat, pulvinar diam a, finibus metus. Suspendisse aliquam eget sapien ac eleifend. Vivamus at faucibus augue, quis posuere velit. Integer pulvinar leo semper nibh sollicitudin, vel commodo nisi tincidunt. Nulla congue enim ut augue laoreet, quis imperdiet massa ullamcorper. Quisque quis ex vel orci laoreet cursus. Duis sem erat, venenatis a ullamcorper non, congue et tortor.
+    </string>
 </resources>
