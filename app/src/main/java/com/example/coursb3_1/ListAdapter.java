@@ -57,9 +57,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         return listDTO.get(position);
     }
 
-    /**
-     * ViewHolder.
-     */
+
+
     class ListViewHolder extends RecyclerView.ViewHolder
     {
 

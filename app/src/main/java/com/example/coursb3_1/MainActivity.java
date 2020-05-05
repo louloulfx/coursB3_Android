@@ -5,12 +5,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import cz.msebera.android.httpclient.Header;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.coursb3_1.json.RetourWS;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity
 
     private RecyclerView recyclerView = null;
     private EditText editTextMemo = null;
+    private FrameLayout frameLayout = null;
 
     private ListAdapter listeAdapter = null;
 
@@ -75,12 +78,26 @@ public class MainActivity extends AppCompatActivity
         editor.putInt(POSITION, position);
         editor.apply();
 
-        ListDTO listDTO = listeAdapter.getListDTOByPosition(position);
+        final ListDTO listDTO = listeAdapter.getListDTOByPosition(position);
 
         AsyncHttpClient client = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
         requestParams.put(LISTE_NAME, listDTO.intitule);
+        frameLayout = findViewById(R.id.container_2);
+        if(frameLayout != null) {
+            DetailFragment fragment = new DetailFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(DetailFragment.LONG_TEXT, listDTO.intitule);
+            fragment.setArguments(bundle);
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_2, fragment).commit();
+        } else {
+            Intent intent = new Intent(this, DetailActivity.class);
+            intent.putExtra(DetailFragment.LONG_TEXT, listDTO.intitule);
+            startActivity(intent);
+        }
+
 
         client.post(LINK, requestParams, new AsyncHttpResponseHandler() {
             @Override
@@ -98,10 +115,7 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    /**
-     * Listener clic bouton valider.
-     * @param view Bouton valider
-     */
+
     public void onClickBoutonValider(View view)
     {
         ListDTO listDTO = new ListDTO(editTextMemo.getText().toString());

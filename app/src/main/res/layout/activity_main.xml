@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -13,7 +14,6 @@
         android:background="@color/background_edit_text"
         android:hint="@string/text_edit_text"
         android:inputType="textCapSentences"
-        android:maxLength="@integer/maxLength_edit_text"
         android:maxLines="1"
         android:padding="@dimen/padding_edit_text"
         android:textColor="@android:color/black"
